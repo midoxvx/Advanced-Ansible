@@ -1,0 +1,8 @@
+---
+- name: testing tower
+  hosts: all
+  tasks:
+
+    - name: print something
+      debug:
+        msg: "This is {{ansible_user}}"
