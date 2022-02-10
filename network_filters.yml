@@ -1,0 +1,26 @@
+---
+- name: test network filters
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vars/interfaces.yml
+
+  
+  tasks:
+
+    - name: let's loop over ip addresses keys first
+      debug:
+        msg: "{{ipa['ip_address']}}"
+      loop: "{{interfaces}}"
+      loop_control:
+        loop_var: ipa
+      tags:
+        - never
+
+    - name: we will select only ip_addresses that start with a digit
+      debug:
+        msg: "{{ipx}}"
+      loop: "{{interfaces| selectattr('ip_address', 'regex', '^[0-9]') | map(attribute='ip_address') | list}}"
+      loop_control:
+        loop_var: ipx
+
