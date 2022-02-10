@@ -1,7 +1,5 @@
 # Practice repo for ex447 exam objectives
-
-# Study points for the exam
-You should be able to accomplish the following grouped tasks without assistance:
+Study points for the exam:
 
 # Understand and use Git
 Clone a Git repository
