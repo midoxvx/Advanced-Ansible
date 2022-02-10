@@ -1,0 +1,17 @@
+---
+- name: play with some filters on package facts
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: gather package facts
+      package_facts:
+        manager: auto
+
+
+
+    - name: print
+      debug:
+        msg: "{{ansible_facts['packages']['sed']}}"
+        
+

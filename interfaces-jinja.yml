@@ -1,0 +1,32 @@
+---
+- name: filter interfaces with simple jinja
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vars/interfaces.yml
+  vars:
+    - path1: /tmp/interfaces.txt
+    - path2: /tmp/interfaces2.txt
+  tasks:
+
+    - name: deploy some report file in temp
+      template:
+        src: interfaces.j2
+        dest: /tmp/interfaces.txt
+        force: true
+    
+    - name: deploy same report with jinja filters
+      template:
+        src: interfaces2.j2
+        dest: /tmp/interfaces2.txt
+        force: true
+      tags:
+        - filter
+
+    - name: We will loop over the /etc/interfaces.txt file and filter furthermore with lookup
+      debug:
+        msg: "{{line}}"
+      loop: "{{lookup('file', '{{path1}}').splitlines()}}"
+      loop_control:
+        loop_var: line
+      when: line is regex('^v.*')

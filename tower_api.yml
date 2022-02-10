@@ -1,0 +1,28 @@
+---
+- name: tower-api 
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: get users call
+      uri:
+        url: http://localhost/api/v2/users/
+        user: admin
+        password: kr10dev
+        method: GET
+        return_content: true
+        force_basic_auth: true
+        headers:
+          Content-Type: 'application/json'
+      register: users
+
+
+    - name: list users and retreive a list of emails
+      debug:
+        msg: "{{users['json']['results'] | map(attribute='email')}}"
+
+
+    - name: create a dictionary from first names and id
+      debug:
+        msg: "{{users['json']['results'] | items2dict(key_name='first_name', value_name='id')}}"
+

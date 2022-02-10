@@ -1,0 +1,33 @@
+---
+- name: testing subelements filter
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vars/subelements.yml
+  tasks:
+
+    - name: test the loop
+      debug:
+        msg: |
+          "name is {{item.0.name}}
+          group is {{item.1}}"
+      loop: "{{users | subelements('groups')}}"
+
+
+    - name: loop users
+      debug:
+        msg: "{{item}}"
+      loop: "{{users}}"
+      tags: 
+        - x
+
+    - name: let's do same with lookup 
+      debug:
+        msg: |
+          "name is {{lookloop[0]['name']}}
+          group is {{lookloop[1]}}"
+      loop: "{{lookup('subelements', users, 'groups')}}"
+      loop_control:
+        loop_var: lookloop
+      tags:
+        - sublook

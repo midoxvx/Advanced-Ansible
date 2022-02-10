@@ -1,0 +1,47 @@
+---
+- name: playing with filters
+  hosts: localhost
+  vars_files:
+    - vars/interfaces.yml
+  tasks:
+
+
+    - name: typical loop
+      debug:
+        msg: "{{interfaces.ip_address}}"
+      loop: "{{interfaces}}"
+      loop_control:
+        loop_var: interfaces
+      tags:
+        - basic
+
+
+    - name: selectattr
+      debug:
+        msg: "{{interfaces | selectattr('ip_address')}}"
+      tags:
+        - selectattr
+
+    - name: selectattr with some test
+      debug:
+        msg: "{{interfaces | selectattr('name', 'eq', 'vlan44')}}"
+      tags:
+        - selectattr2
+    
+    - name: map filtering
+      debug:
+        msg: "{{interfaces | map(attribute='name') | list}}"
+      tags:
+        - map
+
+    - name: items2dict
+      debug:
+        msg: "{{ interfaces | selectattr('ip_address') | items2dict(key_name='name', value_name='ip_address') }}"
+      tags:
+        - auto
+
+    - name: dict2items
+      debug:
+        msg: "{{interfaces}}"
+      tags:
+        - auto2

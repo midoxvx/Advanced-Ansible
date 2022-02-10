@@ -1,0 +1,13 @@
+users:
+- name: alice
+  authorized:
+  - /tmp/alice/onekey.pub
+  - /tmp/alice/twokey.pub
+  groups:
+  - wheel
+  - docker
+- name: bob
+  authorized:
+  - /tmp/bob/id_rsa.pub
+  groups:
+  - docker

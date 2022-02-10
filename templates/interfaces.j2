@@ -1,0 +1,8 @@
+Interfaces list:
+
+{% for interface in interfaces %}
+{%if interface['ip_address'] is defined and interface['ip_address']%}
+{{interface['name']}}: {{interface['ip_address']}}
+{%endif%}
+{%endfor%}
+
