@@ -6,3 +6,7 @@
     - name: print something
       debug:
         msg: "This is {{ansible_user}}"
+
+    - name: print var1
+      debug:
+        msg: "Var 1 is {{var1}}"

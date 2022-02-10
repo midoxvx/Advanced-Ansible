@@ -1,0 +1,3 @@
+ansible_user: medusa2
+ansible_host: 10.0.1.1
+ansible_password: 123456

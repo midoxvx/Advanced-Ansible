@@ -1,0 +1,8 @@
+---
+- name: test ansible user
+  hosts: all
+  tasks:
+
+    - name: debug user
+      debug:
+        msg: "{{ansible_user}}"
