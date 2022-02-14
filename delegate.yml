@@ -1,0 +1,25 @@
+---
+- name: testing delegation
+  hosts: cloud-web-1,cloud-web-2
+  gather_facts: false
+  tasks:
+
+
+    - name: gather for node-2
+      setup:
+      delegate_to: managed-node-2
+      delegate_facts: true
+
+    - name: inventory name
+      debug:
+        var: inventory_hostname
+
+    - name: debug
+      debug:
+        var: hostvars[inventory_hostname]['ansible_facts']['lvm']
+    - name: debugx
+      debug:
+        var: hostvars[inventory_hostname]['ansible_facts']['lvm']
+    - name: debug2
+      debug:
+        var: hostvars['managed-node-2']['ansible_facts']['lvm']

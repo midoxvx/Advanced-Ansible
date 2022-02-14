@@ -1,0 +1,9 @@
+{% for host in groups['all'] %}
+{{host}} interfaces:
+{% for interface in hostvars[host]['ansible_facts']['interfaces'] %}
+{% if interface is regex('^e') %}
+-{{interface}}
+{%endif%}
+{%endfor%}
+
+{%endfor%}

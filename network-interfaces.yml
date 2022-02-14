@@ -1,0 +1,12 @@
+---
+- name: network interfaces
+  hosts: all
+  tasks:
+
+    - name: deploy template
+      template:
+        src: network.j2
+        dest: /tmp/network.txt
+        force: true
+      delegate_to: localhost
+      run_once: true

@@ -1,0 +1,9 @@
+{% for host in groups['all'] %}
+{% for interface in hostvars[host]['ansible_facts']['interfaces'] %}
+{%if interface is regex('^e')%}
+{% set concat = hostvars[host]['ansible_facts'][interface]['ipv4']['network']%}
+{% set concat2 = hostvars[host]['ansible_facts'][interface]['ipv4']['netmask'] %}
+{{concat}}/{{concat2}}
+{%endif%}
+{%endfor%}
+{%endfor%}
