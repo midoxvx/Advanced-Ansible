@@ -1,0 +1,12 @@
+---
+- name: testing map function on a file
+  hosts: localhost
+  vars:
+    - testfile: /tmp/filter.txt
+
+
+  tasks:
+    
+    - name: map and lookup
+      debug:
+        msg: "{{lookup('file', testfile).splitlines() | map('ipaddr', 'net')}}"
