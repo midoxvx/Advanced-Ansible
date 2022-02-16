@@ -1,0 +1,9 @@
+---
+- name: do some stuff
+  hosts: all
+  tasks:
+
+
+    - name: Print some more variables
+      debug:
+        msg: "Remediation playbook"

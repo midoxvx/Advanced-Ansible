@@ -1,0 +1,17 @@
+---
+- name: testing task execution
+  hosts: all
+  serial: 2
+  max_fail_percentage: 50%
+  tasks:
+
+
+    - name: this is task-1
+      debug: 
+        msg: "task no:1 on {{inventory_hostname}}"
+    
+
+
+    - name: this is task-2
+      debug:
+        msg: "task no:2 on {{inventory_hostname}}"

@@ -1,8 +1,14 @@
 ---
 - name: test ansible user
   hosts: all
+  #serial: 2
+  #max_fail_percentage: 50%
   tasks:
 
-    - name: debug user
+    - name: task-1 print user_name
       debug:
         msg: "{{ansible_user}}"
+
+    - name: task-2 print ip
+      debug:
+        msg: "{{ansible_facts['default_ipv4']}}"
