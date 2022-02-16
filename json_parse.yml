@@ -1,0 +1,14 @@
+---
+- name: parsing json
+  hosts: localhost
+  vars:
+    - json_file: /home/medusa/ex447/files/json.dump
+  tasks:
+
+    - name: grab json
+      set_fact:
+        json_dump: "{{lookup('file', '{{json_file}}') | from_json}}"
+
+    - name: traverse
+      set_fact:
+        my_list: "{{json_dump['results'] | map(attribute='playbook')}}"

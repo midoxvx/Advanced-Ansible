@@ -1,0 +1,48 @@
+---
+- name: delegate testing
+  hosts: localhost
+  gather_facts: false
+  vars:
+    paths:
+      - /tmp/find_me
+  tasks:
+
+    - name: find some files
+      find:
+        paths: "{{paths}}"
+        use_regex: false
+        patterns: '*.tgz'
+        recurse: yes
+        size: -1m
+        file_type: file
+      delegate_to: localhost
+      register: findOut
+
+
+
+    - name: debug
+      set_fact:
+        file_list: "{{findOut['files']}}"
+    
+    - name: copy fact to webservers
+      set_fact:
+        web_files: "{{file_list}}"
+      delegate_to: "{{item}}"
+      delegate_facts: true
+      loop: "{{groups['webservers']}}"
+
+- name: testing delegation
+  hosts: webservers
+  gather_facts: true
+  tasks:
+
+    - name: print out delegated fact
+      debug:
+        msg: "{{web_files}}"
+
+
+    - name: fail on non-delegated fact
+      assert:
+        that:
+          - "{{file_list is defined}}"
+        fail_msg:  "empty"

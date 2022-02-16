@@ -17,7 +17,8 @@
     - name: test dict2items filter
       set_fact:
           my_list: "{{users | dict2items(key_name='keyx', value_name='valuex')}}"
-
+      tags:
+        - always
 
     - name: debug
       debug:

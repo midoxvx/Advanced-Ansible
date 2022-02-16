@@ -1,0 +1,17 @@
+---
+- name: items2dict
+  hosts: localhost
+  vars:
+    dictionary:
+      - username: mohie
+        path: /home/mohie
+      - username: meltem
+        path: /home/meltem
+
+
+  tasks:
+
+
+    - name: debug
+      debug:
+        msg: "{{dictionary | items2dict(key_name='username', value_name='path')}}"
