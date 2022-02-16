@@ -5,7 +5,9 @@
   vars:
     users:
       name: mohie
-      shell: /bin/bash
+      shells:
+        - /bin/bash
+        - /bin/sh
       role: admin
       path: /home/mohie
 
@@ -22,12 +24,11 @@
 
     - name: debug
       debug:
-        msg: "{{my_list}}"
+        msg: "{{looping}}"
+      loop: "{{my_list}}"
+      loop_control:
+        loop_var: looping
       tags:
-        - d2i
+        - never
 
-    - name: turn it back to dictionary
-      debug:
-        msg: "{{my_list | items2dict(key_name='keyx', value_name='valuex')}}"
-      tags:
-        - i2d
+

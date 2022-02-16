@@ -1,0 +1,32 @@
+---
+- name: extract method
+  hosts: localhost
+  vars:
+    chains: [x, y]
+    chains_config:
+      x:
+          foo: bar
+          configs:
+              - type: routed
+                version: 0.1
+              - type: bridged
+                version: 0.2
+      y:
+          foo: baz
+          configs:
+              - type: routed
+                version: 1.0
+              - type: bridged
+                version: 1.1
+
+
+
+  tasks:
+
+   - name: return chains_config list
+     debug:
+       msg: "{{chains | map('extract', chains_config)}}"
+   
+   - name: map type attribute
+     debug:
+      msg: "{{chains | map('extract', chains_config) | map(attribute='configs') | flatten | map(attribute='type')}}"

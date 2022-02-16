@@ -2,16 +2,20 @@
 - name: play with some filters on package facts
   hosts: localhost
   gather_facts: false
+  vars:
+    packages:
+      - sed
+      - yum-utils
   tasks:
 
     - name: gather package facts
       package_facts:
         manager: auto
-
+      register: package_facts
 
 
     - name: print
       debug:
-        msg: "{{ansible_facts['packages']['sed']}}"
+        msg: "{{packages | map('extract', package_facts['ansible_facts']['packages'])}}"
         
 

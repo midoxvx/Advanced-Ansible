@@ -1,0 +1,21 @@
+---
+- name: filter network information from various sources
+  hosts: localhost
+  vars:
+    interface: 
+      - enp0s3
+      - enp0s8
+  tasks:
+
+    - name: print network information
+      debug:
+        msg: "{{ansible_facts['default_ipv4']}}"
+
+    - name: print more information
+      debug:
+        msg: "{{interface_list['ipv4']['address']}}"
+      loop: "{{interface | map('extract', ansible_facts)}}"
+      loop_control:
+        loop_var: interface_list
+      tags:
+        - mapex

@@ -1,0 +1,14 @@
+---
+- name: playing with lookup
+  hosts: localhost
+  vars:
+    - root_owned: /tmp/root_owned.txt
+  tasks:
+
+
+    - name: lookup list and print
+      debug:
+        msg: "{{line}}"
+      loop: "{{lookup('file', '{{root_owned}}').splitlines()}}"
+      loop_control:
+        loop_var: line

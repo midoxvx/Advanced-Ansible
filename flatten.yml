@@ -1,0 +1,27 @@
+---
+- name: flatten some lists
+  hosts: localhost
+  vars:
+    nested_list:
+      - one
+      - two
+      - three
+      - four
+      - 
+        - five
+        - six
+      
+
+
+  tasks:
+    - name: loop
+      debug:
+        msg: "{{looping}}"
+      loop: "{{nested_list}}"
+      loop_control:
+        loop_var: looping
+      tags:
+        - loop
+    - name: flatten
+      debug:
+        msg: "{{nested_list | flatten}}"

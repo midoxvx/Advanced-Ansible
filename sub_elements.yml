@@ -11,7 +11,9 @@
         msg: |
           "name is {{item.0.name}}
           group is {{item.1}}"
-      loop: "{{users | subelements('groups')}}"
+      loop: "{{users | subelements('nested.groups')}}"
+      tags:
+        - subnest
 
 
     - name: loop users
