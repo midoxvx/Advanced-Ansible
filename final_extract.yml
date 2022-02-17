@@ -1,0 +1,22 @@
+---
+- name: playing with extract again
+  hosts: all
+  vars:
+
+    interfaces:
+      - enp0s3
+      - enp0s8
+    attributes:
+      - "architecture"
+      - "distribution"
+      - "memtotal_mb"
+
+
+  tasks:
+
+    - name: extract attributes from ansible facts
+      debug:
+        msg: "{{my_list[1]}}"
+      vars:
+
+        my_list: "{{attributes | map('extract', ansible_facts)}}"

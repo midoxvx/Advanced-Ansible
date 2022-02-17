@@ -1,0 +1,10 @@
+---
+- name: testing various filters before exam
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+    - name: lookup split
+      debug:
+        msg: "{{item}}" 
+      loop: "{{lookup('inventory_hostnames', 'all', wantlist=True)}}"

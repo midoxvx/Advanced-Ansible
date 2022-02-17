@@ -1,0 +1,26 @@
+---
+- name: testing host filters api call
+  hosts: localhost
+  gather_facts: False
+  vars:
+    - filter: 'valid'
+
+  tasks:
+
+
+    - name: lets make the call
+      uri:
+        url: "http://localhost/api/v2/hosts/?host_filter=ansible_facts__internal_subnet={{filter}}"
+        user: admin
+        password: kr10dev
+        return_content: True
+        force_basic_auth: True
+        headers:
+          Content-Type: application/json
+      register: hostsOut
+        
+
+
+    - name: Print out returns
+      debug:
+        msg: "{{hostsOut['json']['results'] | items2dict(key_name='name', value_name='id')}}"

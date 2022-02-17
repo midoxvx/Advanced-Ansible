@@ -1,0 +1,15 @@
+---
+- name: using subelements filter with more nests
+  hosts: localhost
+  vars_files:
+    - vars/subelements.yml
+  tasks:
+
+    - name: keep rolling rolling
+      debug:
+        msg: 
+          - "OuterLoop: {{rolling[0]['name']}}"
+          - "InnerLoop: {{rolling[1]}}"
+      loop: "{{users | subelements('nested.houses.districts')}}"
+      loop_control:
+        loop_var: rolling
