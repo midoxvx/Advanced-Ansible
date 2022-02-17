@@ -2,7 +2,7 @@
 - name: first template
   hosts: all
   vars:
-    - external_variabl: 'from_the_playbook'
+    - external_variable: 'from_the_playbook'
   tasks:
 
     - name: print some variables
