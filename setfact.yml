@@ -1,0 +1,28 @@
+---
+- name: set facts for smart inventory only internal subnets
+  hosts: all
+  vars:
+    - static_mask: "255.255.255.0"
+    - static_network: "10.0.2.0"
+
+  tasks:
+
+
+    - name: set network/host prefix
+      set_fact:
+        network_cidr_concat: "{{static_network}}/{{static_mask}}"
+
+    - name: get cidr
+      set_fact:
+        network_cidr: "{{network_cidr_concat | ipaddr('network/prefix')}}"
+    
+    - name: set_false
+      set_fact:
+        internal_subnet: False
+        cacheable: true
+
+    - name: set_fact
+      set_fact:
+        internal_subnet: True
+        cacheable: true
+      when: ansible_facts['all_ipv4_addresses'] | ipaddr(network_cidr)
