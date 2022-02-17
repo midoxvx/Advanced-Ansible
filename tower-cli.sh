@@ -1,7 +1,3 @@
 #!/bin/bash
 
-CONTROLLER_HOST=https://localhost
-CONTROLLER_USERNAME=admin
-CONTROLLER_PASSWORD=kr10dev
-
-awx --conf.insecure login -f human
+awx --conf.username admin --conf.password kr10dev --conf.host https://localhost -k login -f human
