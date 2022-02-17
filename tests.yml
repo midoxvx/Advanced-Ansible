@@ -18,11 +18,11 @@
     
     - name: set_false
       set_fact:
-        internal_subnet: "invalid"
+        internal_subnet: False
         cacheable: true
 
     - name: set_fact
       set_fact:
-        internal_subnet: "valid"
+        internal_subnet: True
         cacheable: true
       when: ansible_facts['all_ipv4_addresses'] | ipaddr(network_cidr)
