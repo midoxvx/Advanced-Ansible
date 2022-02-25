@@ -1,0 +1,36 @@
+---
+- name: validate files
+  hosts: localhost
+  vars_files:
+    - vars/validate.yml
+  tasks:
+
+
+    - name: get stats
+      stat:
+        path: "{{item.name}}"
+        get_checksum: true
+        checksum_algorithm: 'md5'
+      loop: "{{files}}"
+      register: statOut
+
+    - name: when checksum checks out
+      debug:
+        msg: "checks out" 
+        #- "checksum on file: {{statOut['results'] | selectattr('stat.path', 'eq', item2.name) | map(attribute='stat.checksum') | first}}"
+        #- "checksum on variable: {{item2['checksum'].split() | first}}"
+      loop: "{{files}}"
+      loop_control:
+        loop_var: item2
+      when: statOut['results'] | selectattr('stat.path', 'eq', item2.name) | map(attribute='stat.checksum') | first ==  item2['checksum'].split() | first
+
+
+
+    - name: when checksum does not checksout
+      debug:
+        msg: "Does not checkout"
+      loop: "{{files}}"
+      loop_control:
+        loop_var: item3
+      when: statOut['results'] | selectattr('stat.path', 'eq', item3.name) | map(attribute='stat.checksum') | first !=  item3['checksum'].split() | first
+

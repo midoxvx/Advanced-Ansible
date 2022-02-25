@@ -1,0 +1,4 @@
+---
+files:
+  - name: /path/file
+    checksum: 23847928374928374 /path/to/file

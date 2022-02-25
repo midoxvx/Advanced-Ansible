@@ -1,0 +1,39 @@
+---
+- name: validate files
+  hosts: localhost
+  vars_files:
+    - vars/validate.yml
+  tasks:
+
+
+    - name: get stats
+      stat:
+        path: "{{item.name}}"
+        get_checksum: true
+        checksum_algorithm: 'md5'
+      loop: "{{files}}"
+      register: statOut
+
+
+    - name: print out statOut
+      set_fact:
+        files_stat: "{{statOut['results'] | map(attribute='stat') | items2dict(key_name='path', value_name='checksum')}}"
+
+
+    - name: compare checksums
+      debug:
+        msg: "File checks out"
+      loop: "{{files}}"
+      loop_control:
+        loop_var: iterx
+      when: files_stat[iterx['name']] == iterx['checksum'].split() | first
+
+    - name: compare checksum mismatch
+      debug:
+        msg: "File does not check out"
+      loop: "{{files}}"
+      loop_control:
+        loop_var: itery
+      when: files_stat[itery['name']] != itery['checksum'].split() | first
+
+

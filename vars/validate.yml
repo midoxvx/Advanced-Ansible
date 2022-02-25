@@ -1,0 +1,10 @@
+---
+files:
+  - name: /tmp/files_test2/file1.txt
+    checksum: d5f91d8bf4991cb045683b3bb005d5e5  /tmp/files_test/file1.txt
+
+  - name: /tmp/files_test2/file2.txt
+    checksum: 0ebeab0b087750f1ae03af5561feeb8e  /tmp/files_test/file2.txt
+
+  - name: /tmp/files_test2/my_tar.tgz
+    checksum: e18e1e7e349bfd6c8eda25a9407ec5f0  /tmp/files_test/my_tar.tgz

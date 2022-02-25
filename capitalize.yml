@@ -1,0 +1,17 @@
+---
+- name: testing filters
+  hosts: localhost
+  vars:
+   
+    users:
+      - first: ahmed
+        last: mohie
+        address: cairo
+
+  tasks:
+
+    - name: test capitalize
+      debug:
+        msg: "{{users[0]['first'] | capitalize()}}  {{users[0]['last'] | capitalize()}}"
+
+ 

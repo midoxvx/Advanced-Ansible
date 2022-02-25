@@ -1,0 +1,14 @@
+---
+- name: whatever
+  hosts: localhost
+  vars:
+    files:
+      - name: /path/to/file
+        checksum: 83742983742 /path/to/another
+
+  tasks:
+
+
+    - name: split
+      debug:
+        msg: "{{files[0]['checksum'].split() | first}}"
